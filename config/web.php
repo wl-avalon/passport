@@ -1,6 +1,6 @@
 <?php
 $config = [
-    'id' => 'school-admin',
+    'id' => 'passport',
     'timeZone'=>'Asia/Shanghai',
     'basePath' => dirname(dirname(__DIR__)),
     'bootstrap' => ['log'],
@@ -9,7 +9,7 @@ $config = [
     ],
     'controllerNamespace' => 'app\modules\controllers',
     'modules' => [
-        'school-admin' => ['class' => 'app\modules\Module'],
+        'passport' => ['class' => 'app\modules\Module'],
     ],
     'components' => include(__DIR__ . '/components.php'),
     'params' => include (__DIR__ . '/params.php'),

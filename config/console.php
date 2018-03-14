@@ -1,6 +1,6 @@
 <?php
 $config = [
-    'id' => 'question-ui',
+    'id' => 'passport',
     'timeZone'=>'Asia/Shanghai',
     'basePath' => dirname(dirname(__DIR__)),
     'bootstrap' => ['log'],
@@ -8,7 +8,7 @@ $config = [
     'params' => include (__DIR__ . '/params.php'),
     'controllerNamespace' => 'app\modules\commands',
     'modules' => [
-        'question-ui' => ['class' => 'app\modules\Module'],
+        'passport' => ['class' => 'app\modules\Module'],
     ],
     'aliases' => [
 //        '@xxx' => '@app/../xxx',
