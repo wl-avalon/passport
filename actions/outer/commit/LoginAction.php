@@ -9,6 +9,7 @@
 namespace app\modules\actions\outer\commit;
 use app\passport\services\outer\commit\LoginService;
 use sp_framework\actions\BaseAction;
+use sp_framework\components\Assert;
 
 class LoginAction extends BaseAction
 {
@@ -17,6 +18,7 @@ class LoginAction extends BaseAction
     protected function formatParams()
     {
         $this->code = $this->get('code');
+        Assert::isTrue(!empty($this->code), "网络繁忙,请稍后再试", "code不能为空");
     }
 
     public function execute()

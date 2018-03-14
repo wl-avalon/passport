@@ -31,7 +31,7 @@ class LoginService
         Assert::isTrue($setResult != false, "登录失败,写入登录信息失败", "写入登录信息失败");
         return [
             'accessToken'   => $accessToken,
-            'unionID'       => $unionID,
+            'memberID'      => $unionID,
         ];
     }
 }
