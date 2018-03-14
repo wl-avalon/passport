@@ -13,6 +13,16 @@ use sp_framework\constants\SpErrorCodeConst;
 
 class WeixinHandler extends DefaultHandler
 {
+    public function getParams() {
+        $params = [
+            'appid'         => $this->params['appid'],
+            'secret'        => $this->params['secret'],
+            'js_code'       => $this->params['js_code'],
+            'grant_type'    => $this->params['grant_type'],
+        ];
+        return $params;
+    }
+
     public function handleResponse(Response &$response, array $arrJson){
         if(isset($arrJson['errcode'])){
             $response->setReturnCode($arrJson['errcode']);
