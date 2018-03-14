@@ -15,10 +15,10 @@ return [
         'timeout'       => 10000,
         'conntimeout'   => 5000,
     ],
-    'wei_xin_api'   => [
+    'weixin'   => [
         'domain'    => 'https://api.weixin.qq.com',
         'apis' => [
-            'checkSession'    => '/sns/jscode2session', //校验微信的登录Session
+            'getSession'    => '/sns/jscode2session', //校验微信的登录Session
         ],
     ],
 ];

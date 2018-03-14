@@ -12,13 +12,13 @@ use sp_framework\apis\ApiContext;
 
 class WeiXinApi
 {
-    public static function checkSession($appID, $secret, $js_code, $grantType){
+    public static function getSession($js_code){
         $params = [
-            'appid'         => $appID,
-            'secret'        => $secret,
+            'appid'         => 'wxaba3a1bb01b4cc5d',
+            'secret'        => '058ba2c30fafe0142a890c28b7a47505',
             'js_code'       => $js_code,
-            'grant_type'    => $grantType
+            'grant_type'    => 'authorization_code'
         ];
-        ApiContext::post('wei_xin_api', 'checkSession', $params);
+        return ApiContext::post('weixin', 'getSession', $params)->throwWhenFailed();
     }
 }
