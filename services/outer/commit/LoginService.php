@@ -6,7 +6,7 @@
  * Time: 下午4:30
  */
 
-namespace app\passport\services\outer\commit;
+namespace app\modules\services\outer\commit;
 use app\modules\apis\WeiXinApi;
 use app\modules\constants\RedisKey;
 use sp_framework\components\Assert;
