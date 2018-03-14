@@ -7,7 +7,7 @@
  */
 
 namespace app\modules\actions\outer\commit;
-use app\passport\services\outer\commit\LoginService;
+use app\modules\services\outer\commit\LoginService;
 use sp_framework\actions\BaseAction;
 use sp_framework\components\Assert;
 
