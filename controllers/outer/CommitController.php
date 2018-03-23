@@ -14,6 +14,7 @@ class CommitController extends Controller
     public function actions(){
         return [
             "login"         => 'app\modules\actions\outer\commit\LoginAction',
+            "register"      => 'app\modules\actions\outer\commit\RegisterAction',
         ];
     }
 }
