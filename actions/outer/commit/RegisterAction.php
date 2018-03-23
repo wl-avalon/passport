@@ -7,8 +7,10 @@
  */
 
 namespace app\modules\actions\outer\commit;
+use app\modules\apis\WeiXinApi;
 use sp_framework\actions\BaseAction;
 use sp_framework\components\Assert;
+use sp_framework\util\WxEncryptedDecode;
 
 class RegisterAction extends BaseAction
 {
@@ -25,6 +27,13 @@ class RegisterAction extends BaseAction
 
     public function execute()
     {
-        echo json_encode($this->userData);exit;
+        $response   = WeiXinApi::getSession($this->code)->toArray();
+        $wxSession  = $response['session_key'];
+
+        $encryptedData  = [];
+        $decode         = new WxEncryptedDecode(WeiXinApi::APP_ID, $wxSession);
+        $decodeCode     = $decode->decryptData($this->userData['encryptedData'], $this->userData['iv'], $encryptedData);
+        Assert::isTrue($decodeCode === 0, "网络繁忙,请稍后再试", "解析用户数据失败");
+        echo json_encode($encryptedData);exit;
     }
 }
