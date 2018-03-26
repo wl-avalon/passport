@@ -65,9 +65,9 @@ class PassportUserModel
         ];
 
         try{
-            $aData = (new Query())->select([])->where($aWhere)->from(self::TABLE_NAME)->createCommand()->queryOne();
+            $aData = (new Query())->select([])->where($aWhere)->from(self::TABLE_NAME)->createCommand(self::getDB())->queryOne();
         }catch(\Exception $e){
-            throw new \Exception('select db error,condition is:' . json_encode($aWhere));
+            throw new \Exception('select db error,message is:' . $e->getMessage(), "网络繁忙,请稍后再试");
         }
         return self::convertDbToBean($aData);
     }

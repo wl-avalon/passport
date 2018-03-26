@@ -18,7 +18,7 @@ class LoginService
     public static function login($wxSession, $unionID){
         $userBean       = PassportUserModel::queryUserByWxUnionID($unionID);
         $memberID       = $userBean->getUuid();
-        Assert::isTrue(!empty($userID), "登陆失败,请重试操作", "获取用户信息失败", 403);
+        Assert::isTrue(!empty($memberID), "请注册后登陆", "登陆失败,未找到对应用户", 400);
         $accessToken    = PackageParams::packageAccessToken($memberID);
         self::setLoginRedis($accessToken, $wxSession, $memberID);
         return [
