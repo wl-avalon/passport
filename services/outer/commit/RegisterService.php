@@ -8,6 +8,7 @@
 
 namespace app\modules\services\outer\commit;
 
+use app\modules\components\PackageParams;
 use app\modules\constants\PassportUserBeanConst;
 use app\modules\models\beans\PassportUserBean;
 use app\modules\models\PassportUserModel;
@@ -15,7 +16,7 @@ use sp_framework\apis\IdAllocApi;
 
 class RegisterService
 {
-    public static function register($encryptedData){
+    public static function register($encryptedData, $wxSession){
         $userUuid       = IdAllocApi::nextId()->toArray()['nextId'];
         $userBeanData   = [
             'uuid'          => $userUuid,
@@ -33,6 +34,12 @@ class RegisterService
         ];
         $userBean       = new PassportUserBean($userBeanData);
         PassportUserModel::insertOneRecord($userBean);
-        return [];
+
+        $accessToken    = PackageParams::packageAccessToken($userUuid);
+        LoginService::setLoginRedis($accessToken, $userUuid, $wxSession);
+        return [
+            'memberID'      => $userUuid,
+            'accessToken'   => PackageParams::packageAccessToken($userUuid),
+        ];
     }
 }

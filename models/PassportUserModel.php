@@ -7,9 +7,11 @@
  */
 
 namespace app\modules\models;
+use app\modules\constants\PassportUserBeanConst;
 use app\modules\models\beans\PassportUserBean;
 use sp_framework\components\SpException;
 use sp_framework\constants\SpErrorCodeConst;
+use yii\db\Query;
 
 class PassportUserModel
 {
@@ -48,5 +50,25 @@ class PassportUserModel
             throw new SpException(SpErrorCodeConst::INSERT_DB_ERROR, "insert db error, message is:" . $e->getMessage(), "网络繁忙,请稍后再试");
         }
         return $rowNum;
+    }
+
+    /**
+     * 根据微信开放平台唯一ID获取用户信息
+     * @param $wxUnionID
+     * @return PassportUserBean
+     * @throws \Exception
+     */
+    public static function queryUserByWxUnionID($wxUnionID){
+        $aWhere = [
+            'wx_union_id'   => $wxUnionID,
+            'user_status'   => PassportUserBeanConst::USER_STATUS_NORMAL,
+        ];
+
+        try{
+            $aData = (new Query())->select([])->where($aWhere)->from(self::TABLE_NAME)->createCommand()->queryOne();
+        }catch(\Exception $e){
+            throw new \Exception('select db error,condition is:' . json_encode($aWhere));
+        }
+        return self::convertDbToBean($aData);
     }
 }
