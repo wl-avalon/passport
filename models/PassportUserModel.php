@@ -13,7 +13,7 @@ use sp_framework\constants\SpErrorCodeConst;
 
 class PassportUserModel
 {
-    const TABLE_NAME = "passport";
+    const TABLE_NAME = "passport_user";
     private static $db_school;
 
     public static function getDB(){

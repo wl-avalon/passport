@@ -40,9 +40,8 @@ class RegisterAction extends BaseAction
         $decodeCode     = $decode->decryptData($this->userData['encryptedData'], $this->userData['iv'], $encryptedData);
         Assert::isTrue($decodeCode === 0, "网络繁忙,请稍后再试", "解析用户数据失败,errorCode:{$decodeCode}");
 
-        $rawData        = json_decode($this->userData['rawData'], true);
         $encryptedData  = json_decode($encryptedData, true);
-        RegisterService::register($rawData, $encryptedData);
+        RegisterService::register($encryptedData);
         return [];
     }
 }
