@@ -8,6 +8,7 @@
 
 namespace app\modules\actions\outer\commit;
 use app\modules\apis\WeiXinApi;
+use app\modules\services\outer\commit\RegisterService;
 use sp_framework\actions\BaseAction;
 use sp_framework\components\Assert;
 use sp_framework\util\WxEncryptedDecode;
@@ -27,13 +28,21 @@ class RegisterAction extends BaseAction
 
     public function execute()
     {
-        $response   = WeiXinApi::getSession($this->code)->toArray();
-        $wxSession  = $response['session_key'];
+        $response       = WeiXinApi::getSession($this->code)->toArray();
+        $wxSession      = $response['session_key'];
+
+        $sha1Content    = $this->userData['rawData'] . $wxSession;
+        $sign           = sha1($sha1Content);
+        Assert::isTrue($sign === $this->userData['signature'], "网络繁忙,请稍后再试", "微信数据签名验证失败");
 
         $encryptedData  = [];
         $decode         = new WxEncryptedDecode(WeiXinApi::APP_ID, $wxSession);
         $decodeCode     = $decode->decryptData($this->userData['encryptedData'], $this->userData['iv'], $encryptedData);
-        Assert::isTrue($decodeCode === 0, "网络繁忙,请稍后再试", "解析用户数据失败");
-        echo json_encode($encryptedData);exit;
+        Assert::isTrue($decodeCode === 0, "网络繁忙,请稍后再试", "解析用户数据失败,errorCode:{$decodeCode}");
+
+        $rawData        = json_decode($this->userData['rawData'], true);
+        $encryptedData  = json_decode($encryptedData, true);
+        RegisterService::register($rawData, $encryptedData);
+        return [];
     }
 }
