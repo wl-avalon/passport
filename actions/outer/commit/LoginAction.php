@@ -41,7 +41,7 @@ class LoginAction extends BaseAction
         Assert::isTrue($decodeCode === 0, "网络繁忙,请稍后再试", "解析用户数据失败,errorCode:{$decodeCode}");
 
         $encryptedData  = json_decode($encryptedData, true);
-        $loginResult    = LoginService::login($this->code, $encryptedData['unionId']);
+        $loginResult    = LoginService::login($wxSession, $encryptedData['unionId']);
         return $loginResult;
     }
 }

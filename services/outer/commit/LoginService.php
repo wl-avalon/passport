@@ -7,7 +7,6 @@
  */
 
 namespace app\modules\services\outer\commit;
-use app\modules\apis\WeiXinApi;
 use app\modules\components\PackageParams;
 use app\modules\constants\RedisKey;
 use app\modules\models\PassportUserModel;
@@ -16,9 +15,7 @@ use sp_framework\util\RedisUtil;
 
 class LoginService
 {
-    public static function login($code, $unionID){
-        $response       = WeiXinApi::getSession($code)->toArray();
-        $wxSession      = $response['session_key'];
+    public static function login($wxSession, $unionID){
         $userBean       = PassportUserModel::queryUserByWxUnionID($unionID);
         $memberID       = $userBean->getUuid();
         Assert::isTrue(!empty($userID), "登陆失败,请重试操作", "获取用户信息失败", 403);
