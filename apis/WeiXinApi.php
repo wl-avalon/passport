@@ -12,8 +12,8 @@ use sp_framework\apis\ApiContext;
 
 class WeiXinApi
 {
-    const APP_ID        = "wxaba3a1bb01b4cc5d";
-    const SECRET        = "058ba2c30fafe0142a890c28b7a47505";
+    const APP_ID        = "wx9df0d56749f4bddd";
+    const SECRET        = "4a775ed373f8c78cf063b108cf8ceedc";
     const GRANT_TYPE    = "authorization_code";
     public static function getSession($js_code){
         $params = [
