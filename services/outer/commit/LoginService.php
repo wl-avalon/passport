@@ -23,7 +23,7 @@ class LoginService
         self::setLoginRedis($accessToken, $wxSession, $memberID);
         return [
             'accessToken'   => $accessToken,
-            'memberID'      => $unionID,
+            'memberID'      => $memberID,
         ];
     }
 

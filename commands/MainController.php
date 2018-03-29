@@ -11,6 +11,7 @@ use app\modules\components\MockData;
 use app\modules\components\SPLog;
 use app\modules\constants\RedisKey;
 use app\modules\library\Proxy;
+use app\modules\services\daemon\GetAccessTokenService;
 use app\modules\services\daemon\process\CreateQuestionDetailService;
 use app\modules\services\daemon\process\TurnMathmlToPngService;
 use app\modules\services\daemon\spider\CreateQuestionService;
@@ -20,5 +21,7 @@ use yii\console\Controller;
 
 class MainController extends Controller
 {
-
+    public function actionGetAccessToken(){
+        GetAccessTokenService::getAccessToken();
+    }
 }

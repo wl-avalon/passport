@@ -13,4 +13,5 @@ class RedisKey
 {
     const PASSPORT_LOGIN_KEY            = 'passport_login_key_';
     const PASSPORT_USER_ACCESS_TOKEN    = 'passport_user_access_token_';
+    const WEI_XIN_ACCESS_TOKEN          = 'wei_xin_access_token';
 }

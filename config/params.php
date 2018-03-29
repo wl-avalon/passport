@@ -18,7 +18,8 @@ return [
     'weixin'   => [
         'domain'    => 'https://api.weixin.qq.com',
         'apis' => [
-            'getSession'    => '/sns/jscode2session', //校验微信的登录Session
+            'getSession'        => '/sns/jscode2session',   //校验微信的登录Session
+            'getAccessToken'    => '/cgi-bin/token',        //获取accessToken
         ],
     ],
 ];
