@@ -11,7 +11,7 @@ $config = [
         'passport' => ['class' => 'app\modules\Module'],
     ],
     'aliases' => [
-//        '@xxx' => '@app/../xxx',
+        '@sp_framework' => '@app/../sp_framework',
     ],
 ];
 return $config;
