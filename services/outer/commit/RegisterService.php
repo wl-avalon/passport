@@ -13,6 +13,7 @@ use app\modules\constants\PassportUserBeanConst;
 use app\modules\models\beans\PassportUserBean;
 use app\modules\models\PassportUserModel;
 use sp_framework\apis\IdAllocApi;
+use sp_framework\components\Assert;
 
 class RegisterService
 {
@@ -33,7 +34,11 @@ class RegisterService
             'create_time'   => date('Y-m-d H:i:s'),
         ];
         $userBean       = new PassportUserBean($userBeanData);
-        PassportUserModel::insertOneRecord($userBean);
+        try{
+            PassportUserModel::insertOneRecord($userBean);
+        }catch(\Exception $e){
+            self::checkRegister($encryptedData['unionId']);
+        }
 
         $accessToken    = PackageParams::packageAccessToken($userUuid);
         LoginService::setLoginRedis($accessToken, $userUuid, $wxSession);
@@ -41,5 +46,10 @@ class RegisterService
             'memberID'      => $userUuid,
             'accessToken'   => PackageParams::packageAccessToken($userUuid),
         ];
+    }
+
+    public static function checkRegister($wxUnionID){
+        $userBean = PassportUserModel::queryUserByWxUnionID($wxUnionID);
+        Assert::isTrue(!empty($userBean->getUuid()), "网络繁忙,请稍后再试", "插入数据库失败");
     }
 }
