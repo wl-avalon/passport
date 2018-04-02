@@ -23,7 +23,7 @@ class WeixinHandler extends DefaultHandler
         return $params;
     }
 
-    public function handleResponse(Response &$response, array $arrJson){
+    public function handleResponse(Response &$response, $arrJson){
         if(isset($arrJson['errcode'])){
             $response->setReturnCode($arrJson['errcode']);
             $response->setReturnUserMessage($arrJson['errmsg']);
