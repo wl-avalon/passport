@@ -23,5 +23,13 @@ class GetAccessTokenService
         $accessToken    = $getResponse->toArray()['access_token'];
         $redis          = RedisUtil::getInstance('redis');
         $redis->set(RedisKey::WEI_XIN_ACCESS_TOKEN, $accessToken);
+
+        $getResponse    = WeiXinApi::getAccessToken(2);
+        if($getResponse->failed() || empty($getResponse->toArray()['access_token'])){
+            return;
+        }
+        $accessToken    = $getResponse->toArray()['access_token'];
+        $redis          = RedisUtil::getInstance('redis');
+        $redis->set(RedisKey::WEI_XIN_PARENT_ACCESS_TOKEN, $accessToken);
     }
 }
