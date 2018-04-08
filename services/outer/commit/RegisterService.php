@@ -37,7 +37,7 @@ class RegisterService
         try{
             PassportUserModel::insertOneRecord($userBean);
         }catch(\Exception $e){
-            self::checkRegister($encryptedData['unionId']);
+            $userUuid = self::checkRegister($encryptedData['unionId']);
         }
 
         $accessToken    = PackageParams::packageAccessToken($userUuid);
@@ -51,5 +51,6 @@ class RegisterService
     public static function checkRegister($wxUnionID){
         $userBean = PassportUserModel::queryUserByWxUnionID($wxUnionID);
         Assert::isTrue(!empty($userBean->getUuid()), "网络繁忙,请稍后再试", "插入数据库失败");
+        return $userBean->getUuid();
     }
 }
