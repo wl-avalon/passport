@@ -23,7 +23,7 @@ class RegisterAction extends BaseAction
     {
         $this->code         = $this->get('code');
         $this->userData     = json_decode($this->get('userData'), true);
-        $this->registerFrom = json_decode($this->get('registerFrom'), 1);
+        $this->registerFrom = $this->get('registerFrom', 1);
         Assert::isTrue(!empty($this->code), "网络繁忙,请稍后再试", "code不能为空");
         Assert::isTrue(!empty($this->userData), "网络繁忙,请稍后再试", "userData不能为空");
     }
