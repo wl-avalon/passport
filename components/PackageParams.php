@@ -11,6 +11,6 @@ namespace app\modules\components;
 class PackageParams
 {
     public static function packageAccessToken($userID){
-        return "ACCESS_TOKEN_" . base64_encode($userID) . "_" . base64_encode(time());
+        return "ACCESS_TOKEN_" . md5($userID) . "_" . md5(time());
     }
 }
