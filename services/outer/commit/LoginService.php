@@ -18,10 +18,10 @@ class LoginService
     public static function login($wxSession, $unionID){
         $userBean       = PassportUserModel::queryUserByWxUnionID($unionID);
         $memberID       = $userBean->getUuid();
-//        Assert::isTrue(!empty($memberID), "请注册后登陆", "登陆失败,未找到对应用户", 400);
-        if(empty($memberID)){
-            $memberID = '849757713536643080';
-        }
+        Assert::isTrue(!empty($memberID), "请注册后登陆", "登陆失败,未找到对应用户", 400);
+//        if(empty($memberID)){
+//            $memberID = '849757713536643080';
+//        }
         $accessToken    = PackageParams::packageAccessToken($memberID);
         self::setLoginRedis($accessToken, $wxSession, $memberID);
         return [
