@@ -18,7 +18,7 @@ use sp_framework\components\Assert;
 class RegisterService
 {
     public static function register($encryptedData, $wxSession){
-        $userUuid       = IdAllocApi::nextId()->toArray()['nextId'];
+        $userUuid       = strval(IdAllocApi::nextId()->toArray()['nextId']);
         $userBeanData   = [
             'uuid'          => $userUuid,
             'user_status'   => PassportUserBeanConst::USER_STATUS_NORMAL,
